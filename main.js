@@ -17,7 +17,7 @@ function init() {
 
 function create(text) {
     return `<li class="todo__item" data-todo-state="active">
-    <span class="todo__task">${num}. ${text}</span>
+    <span class="todo__task">${text}</span>
     <span class="todo__action todo__action_restore" data-todo-action="active"></span>
     <span class="todo__action todo__action_complete" data-todo-action="completed"></span>
     <span class="todo__action todo__action_delete" data-todo-action="deleted"></span></li>`;
