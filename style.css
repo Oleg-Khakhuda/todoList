@@ -56,11 +56,16 @@ body {
 
 .todo__add {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   right: 5px;
   top: 50%;
   transform: translateY(-50%);
   height: 26px;
   width: 26px;
+  border: none;
+  border-radius: 3px;
   background-color: #f1a500;
   cursor: pointer;
   transition: background-color 0.15s ease-in;
@@ -79,8 +84,6 @@ body {
 .todo__add::before {
   content: "";
   position: absolute;
-  left: 5px;
-  top: 5px;
   width: 16px;
   height: 16px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='%23fff' d='M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z' class=''%3E%3C/path%3E%3C/svg%3E");
@@ -142,10 +145,14 @@ body {
 
 .todo__action {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   right: 15px;
   height: 32px;
   width: 32px;
-  border-radius: 4px;
+  border: none;
+  border-radius: 3px;
   background-color: #80deea;
   opacity: 0.5;
   transition: top 0.3s ease-in;
@@ -155,11 +162,8 @@ body {
 .todo__action::before {
   content: "";
   position: absolute;
-  top: 6px;
-  right: 6px;
   width: 20px;
   height: 20px;
-  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }

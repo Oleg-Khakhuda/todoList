@@ -1,45 +1,57 @@
 refs = {
-    getLocalStorage: document.querySelector('.todo__items'),
+    items: document.querySelector('.todo__items'),
     todoOptions: document.querySelector('.todo__options'),
     inputText: document.querySelector('.todo__text'),
     addBtn: document.querySelector('.todo__add'),
     form: document.querySelector('.todo__input'),
 }
 
+refs.todoOptions.addEventListener('click', updateStatus);
+refs.addBtn.addEventListener('click', addMarkup);
+document.addEventListener('click', action);
+
+// Проверка localStorage 
+
 function init() {
   const fromStorage = localStorage.getItem('todo');
     if (fromStorage) {
-      refs.getLocalStorage.innerHTML = fromStorage;
+      refs.items.insertAdjacentHTML('beforeend', fromStorage);
     }
-    refs.todoOptions.addEventListener('click', update);
-    document.addEventListener('click', action)
 }
 
-function create(text) {
+// Создает разметка задачи
+
+function createMarkup(text) {
     return `<li class="todo__item" data-todo-state="active">
     <span class="todo__task">${text}</span>
-    <span class="todo__action todo__action_restore" data-todo-action="active"></span>
-    <span class="todo__action todo__action_complete" data-todo-action="completed"></span>
-    <span class="todo__action todo__action_delete" data-todo-action="deleted"></span></li>`;
+    <button class="todo__action todo__action_restore" data-todo-action="active"></button>
+    <button class="todo__action todo__action_complete" data-todo-action="completed"></button>
+    <button class="todo__action todo__action_delete" data-todo-action="deleted"></button></li>`;
 }
 
-function save() {
-    const saveTodoItems = refs.getLocalStorage.innerHTML;
-    localStorage.setItem('todo', saveTodoItems)
+function saveToLocalStorage() {
+  const saveTodoItems = refs.items.innerHTML;
+  localStorage.setItem('todo', saveTodoItems)
 }
 
-function update() {
-    const option = refs.todoOptions.value;
-    refs.getLocalStorage.dataset.todoOption = option;
-    refs.inputText.disabled = option !== 'active'
+function updateStatus() {
+  const option = refs.todoOptions.value;
+  refs.items.dataset.todoOption = option;
+  if (option !== 'active') {
+    refs.inputText.setAttribute("disabled", "disabled")
+  } else {
+    refs.inputText.removeAttribute("disabled")
+  }
 }
 
-function add() {
-  if (refs.inputText.disabled || !refs.inputText.value.length) {
+function addMarkup() {
+  const value = refs.inputText.value
+  if (refs.inputText.disabled || !value.length) {
     return;
   }
-  refs.getLocalStorage.insertAdjacentHTML('beforeend', create(refs.inputText.value));
-  refs.inputText.value = '';
+  refs.items.insertAdjacentHTML('beforeend', createMarkup(value));
+  saveToLocalStorage();
+  refs.inputText.value = '';  
 }
 
 function action(e) {
@@ -52,10 +64,7 @@ function action(e) {
     } else {
       elemItem.dataset.todoState = action;
     }
-    save();
-  } else if (target.classList.contains('todo__add')) {
-    add();
-    save();
+    saveToLocalStorage();
   }
 }
 
