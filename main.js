@@ -19,7 +19,7 @@ function init() {
     }
 }
 
-// Создает разметка задачи
+// Создает разметку задачи
 
 function createMarkup(text) {
     return `<li class="todo__item" data-todo-state="active">
@@ -29,10 +29,14 @@ function createMarkup(text) {
     <button class="todo__action todo__action_delete" data-todo-action="deleted"></button></li>`;
 }
 
+// Сохраняет в LocalStorage
+
 function saveToLocalStorage() {
   const saveTodoItems = refs.items.innerHTML;
-  localStorage.setItem('todo', saveTodoItems)
+  localStorage.setItem('todo', saveTodoItems);
 }
+
+// Обновляет статус задачи
 
 function updateStatus() {
   const option = refs.todoOptions.value;
@@ -44,21 +48,25 @@ function updateStatus() {
   }
 }
 
+// Добавляет задачу
+
 function addMarkup() {
-  const value = refs.inputText.value
+  const value = refs.inputText.value;
   if (refs.inputText.disabled || !value.length) {
     return;
   }
   refs.items.insertAdjacentHTML('beforeend', createMarkup(value));
   saveToLocalStorage();
-  refs.inputText.value = '';  
+  refs.inputText.value = '';
 }
+
+// Управляет статусом задачи
 
 function action(e) {
   const target = e.target;
   if (target.classList.contains('todo__action')) {
     const action = target.dataset.todoAction;
-    const elemItem = target.closest('.todo__item');
+    const elemItem = target.parentElement;
     if (action === 'deleted' && elemItem.dataset.todoState === 'deleted') {
       elemItem.remove();
     } else {
