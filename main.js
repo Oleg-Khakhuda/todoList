@@ -66,7 +66,7 @@ function action(e) {
   const target = e.target;
   if (target.classList.contains('todo__action')) {
     const action = target.dataset.todoAction;
-    const elemItem = target.parentElement;
+    const elemItem = target.parentNode;
     if (action === 'deleted' && elemItem.dataset.todoState === 'deleted') {
       elemItem.remove();
     } else {
